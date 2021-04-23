@@ -1,0 +1,41 @@
+version: "3"
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Nitesh
+    environment:
+      name: nitesh
+      regno: 11915597
+    volumes:
+      - ./nitesh_5597:/var/www/html/
+    ports:
+      - 8000:80
+    networks:
+      app_net:
+        ipv4_address: 11.91.55.90      
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: nitesh
+      MYSQL_DATABASE: hotel_management-system
+    volumes:
+      - ./nitesh_1191:/docker-entrypoint-initdb.d
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 11.91.55.23/24
+          
