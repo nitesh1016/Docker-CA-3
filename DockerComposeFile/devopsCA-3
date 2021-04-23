@@ -1,0 +1,2 @@
+FROM php:8-apache
+RUN doker-php-ext-install mysqli
